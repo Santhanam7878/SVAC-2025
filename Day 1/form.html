@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation - Email, Mobile & Password</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .form-container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+            font-size: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e1e1;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .error {
+            color: #e74c3c;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .success {
+            color: #27ae60;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .password-strength {
+            margin-top: 8px;
+            height: 4px;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .strength-weak {
+            background: #e74c3c;
+            width: 33%;
+        }
+
+        .strength-medium {
+            background: #f39c12;
+            width: 66%;
+        }
+
+        .strength-strong {
+            background: #27ae60;
+            width: 100%;
+        }
+
+        .strength-text {
+            font-size: 12px;
+            margin-top: 5px;
+            font-weight: 600;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            background: #5a6fd8;
+        }
+
+        .submit-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+        }
+
+        .input-error {
+            border-color: #e74c3c !important;
+        }
+
+        .input-success {
+            border-color: #27ae60 !important;
+        }
+
+        .validation-icon {
+            position: absolute;
+            right: 15px;
+            top: 42px;
+            font-size: 16px;
+        }
+
+        .icon-error {
+            color: #e74c3c;
+        }
+
+        .icon-success {
+            color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Registration Form</h2>
+        <form id="registrationForm" novalidate>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="Enter your email" required>
+                <span class="validation-icon" id="emailIcon"></span>
+                <div class="error" id="emailError">Please enter a valid email address</div>
+                <div class="success" id="emailSuccess">Email is valid</div>
+            </div>
+
+            <div class="form-group">
+                <label for="mobile">Mobile Number</label>
+                <input type="tel" id="mobile" placeholder="Enter your mobile number" required>
+                <span class="validation-icon" id="mobileIcon"></span>
+                <div class="error" id="mobileError">Please enter a valid 10-digit mobile number</div>
+                <div class="success" id="mobileSuccess">Mobile number is valid</div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password" required>
+                <span class="validation-icon" id="passwordIcon"></span>
+                <div class="password-strength" id="passwordStrength"></div>
+                <div class="strength-text" id="strengthText"></div>
+                <div class="error" id="passwordError">Password must be at least 8 characters with uppercase, lowercase, number, and special character</div>
+                <div class="success" id="passwordSuccess">Password is strong</div>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+                <span class="validation-icon" id="confirmPasswordIcon"></span>
+                <div class="error" id="confirmPasswordError">Passwords do not match</div>
+                <div class="success" id="confirmPasswordSuccess">Passwords match</div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn" disabled>Register</button>
+        </form>
+    </div>
+
+    <script>
+        // Form elements
+        const form = document.getElementById('registrationForm');
+        const email = document.getElementById('email');
+        const mobile = document.getElementById('mobile');
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirmPassword');
+        const submitBtn = document.getElementById('submitBtn');
+
+        // Validation states
+        let validationStates = {
+            email: false,
+            mobile: false,
+            password: false,
+            confirmPassword: false
+        };
+
+        // Email validation
+        email.addEventListener('input', validateEmail);
+        email.addEventListener('blur', validateEmail);
+
+        function validateEmail() {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const emailValue = email.value.trim();
+            const emailError = document.getElementById('emailError');
+            const emailSuccess = document.getElementById('emailSuccess');
+            const emailIcon = document.getElementById('emailIcon');
+
+            if (emailValue === '') {
+                showError(email, emailError, emailIcon, 'Email is required');
+                validationStates.email = false;
+            } else if (!emailRegex.test(emailValue)) {
+                showError(email, emailError, emailIcon, 'Please enter a valid email address');
+                validationStates.email = false;
+            } else {
+                showSuccess(email, emailSuccess, emailIcon, 'Email is valid');
+                validationStates.email = true;
+            }
+            updateSubmitButton();
+        }
+
+        // Mobile validation
+        mobile.addEventListener('input', validateMobile);
+        mobile.addEventListener('blur', validateMobile);
+
+        function validateMobile() {
+            const mobileRegex = /^[6-9]\d{9}$/;
+            const mobileValue = mobile.value.trim();
+            const mobileError = document.getElementById('mobileError');
+            const mobileSuccess = document.getElementById('mobileSuccess');
+            const mobileIcon = document.getElementById('mobileIcon');
+
+            if (mobileValue === '') {
+                showError(mobile, mobileError, mobileIcon, 'Mobile number is required');
+                validationStates.mobile = false;
+            } else if (!mobileRegex.test(mobileValue)) {
+                showError(mobile, mobileError, mobileIcon, 'Please enter a valid 10-digit mobile number');
+                validationStates.mobile = false;
+            } else {
+                showSuccess(mobile, mobileSuccess, mobileIcon, 'Mobile number is valid');
+                validationStates.mobile = true;
+            }
+            updateSubmitButton();
+        }
+
+        // Password validation
+        password.addEventListener('input', validatePassword);
+        password.addEventListener('blur', validatePassword);
+
+        function validatePassword() {
+            const passwordValue = password.value;
+            const passwordError = document.getElementById('passwordError');
+            const passwordSuccess = document.getElementById('passwordSuccess');
+            const passwordIcon = document.getElementById('passwordIcon');
+            const passwordStrength = document.getElementById('passwordStrength');
+            const strengthText = document.getElementById('strengthText');
+
+            if (passwordValue === '') {
+                showError(password, passwordError, passwordIcon, 'Password is required');
+                passwordStrength.className = 'password-strength';
+                strengthText.textContent = '';
+                validationStates.password = false;
+            } else {
+                const strength = checkPasswordStrength(passwordValue);
+                updatePasswordStrength(strength);
+                
+                if (strength.score < 3) {
+                    showError(password, passwordError, passwordIcon, 'Password is too weak');
+                    validationStates.password = false;
+                } else {
+                    showSuccess(password, passwordSuccess, passwordIcon, 'Password is strong');
+                    validationStates.password = true;
+                }
+            }
+            updateSubmitButton();
+            validateConfirmPassword();
+        }
+
+        function checkPasswordStrength(password) {
+            let score = 0;
+            let feedback = [];
+
+            // Length check
+            if (password.length >= 8) score++;
+            else feedback.push('at least 8 characters');
+
+            // Uppercase check
+            if (/[A-Z]/.test(password)) score++;
+            else feedback.push('uppercase letter');
+
+            // Lowercase check
+            if (/[a-z]/.test(password)) score++;
+            else feedback.push('lowercase letter');
+
+            // Number check
+            if (/\d/.test(password)) score++;
+            else feedback.push('number');
+
+            // Special character check
+            if (/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) score++;
+            else feedback.push('special character');
+
+            return { score, feedback };
+        }
+
+        function updatePasswordStrength(strength) {
+            const passwordStrength = document.getElementById('passwordStrength');
+            const strengthText = document.getElementById('strengthText');
+
+            passwordStrength.className = 'password-strength';
+            
+            if (strength.score <= 2) {
+                passwordStrength.classList.add('strength-weak');
+                strengthText.textContent = 'Weak';
+                strengthText.style.color = '#e74c3c';
+            } else if (strength.score === 3) {
+                passwordStrength.classList.add('strength-medium');
+                strengthText.textContent = 'Medium';
+                strengthText.style.color = '#f39c12';
+            } else {
+                passwordStrength.classList.add('strength-strong');
+                strengthText.textContent = 'Strong';
+                strengthText.style.color = '#27ae60';
+            }
+        }
+
+        // Confirm password validation
+        confirmPassword.addEventListener('input', validateConfirmPassword);
+        confirmPassword.addEventListener('blur', validateConfirmPassword);
+
+        function validateConfirmPassword() {
+            const confirmPasswordValue = confirmPassword.value;
+            const passwordValue = password.value;
+            const confirmPasswordError = document.getElementById('confirmPasswordError');
+            const confirmPasswordSuccess = document.getElementById('confirmPasswordSuccess');
+            const confirmPasswordIcon = document.getElementById('confirmPasswordIcon');
+
+            if (confirmPasswordValue === '') {
+                showError(confirmPassword, confirmPasswordError, confirmPasswordIcon, 'Please confirm your password');
+                validationStates.confirmPassword = false;
+            } else if (confirmPasswordValue !== passwordValue) {
+                showError(confirmPassword, confirmPasswordError, confirmPasswordIcon, 'Passwords do not match');
+                validationStates.confirmPassword = false;
+            } else {
+                showSuccess(confirmPassword, confirmPasswordSuccess, confirmPasswordIcon, 'Passwords match');
+                validationStates.confirmPassword = true;
+            }
+            updateSubmitButton();
+        }
+
+        // Helper functions
+        function showError(input, errorElement, iconElement, message) {
+            input.classList.remove('input-success');
+            input.classList.add('input-error');
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+            iconElement.textContent = '✗';
+            iconElement.className = 'validation-icon icon-error';
+        }
+
+        function showSuccess(input, successElement, iconElement, message) {
+            input.classList.remove('input-error');
+            input.classList.add('input-success');
+            successElement.textContent = message;
+            successElement.style.display = 'block';
+            iconElement.textContent = '✓';
+            iconElement.className = 'validation-icon icon-success';
+        }
+
+        function updateSubmitButton() {
+            const allValid = Object.values(validationStates).every(state => state === true);
+            submitBtn.disabled = !allValid;
+        }
+
+        // Form submission
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (Object.values(validationStates).every(state => state === true)) {
+                alert('Registration successful! Form submitted.');
+                form.reset();
+                
+                // Reset validation states
+                Object.keys(validationStates).forEach(key => {
+                    validationStates[key] = false;
+                });
+                
+                // Reset UI
+                document.querySelectorAll('.validation-icon').forEach(icon => {
+                    icon.textContent = '';
+                    icon.className = 'validation-icon';
+                });
+                
+                document.querySelectorAll('.error, .success').forEach(msg => {
+                    msg.style.display = 'none';
+                });
+                
+                document.querySelectorAll('input').forEach(input => {
+                    input.classList.remove('input-error', 'input-success');
+                });
+                
+                document.getElementById('passwordStrength').className = 'password-strength';
+                document.getElementById('strengthText').textContent = '';
+                
+                updateSubmitButton();
+            }
+        });
+
+        // Initialize
+        updateSubmitButton();
+    </script>
+</body>
+</html>

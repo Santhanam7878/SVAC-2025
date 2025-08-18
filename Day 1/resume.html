@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sri Santhanam Samy - Professional Resume</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #64748b;
+            --accent-color: #0ea5e9;
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --radius: 0.5rem;
+            --max-width: 1200px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .resume-container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            background: var(--bg-primary);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+        }
+
+        .resume-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            color: white;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .resume-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(50%, -50%);
+        }
+
+        .header-content {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 2rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .name-section h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.025em;
+        }
+
+        .title {
+            font-size: 1.25rem;
+            font-weight: 400;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .contact-item i {
+            width: 16px;
+            text-align: center;
+        }
+
+        .resume-body {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 0;
+        }
+
+        .main-content {
+            padding: 2.5rem;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .sidebar {
+            padding: 2.5rem;
+            background: var(--bg-secondary);
+        }
+
+        .section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-title i {
+            color: var(--primary-color);
+        }
+
+        .education-item, .experience-item, .project-item {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: var(--radius);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+
+        .item-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
+
+        .item-date {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .item-subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .item-description {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .item-description ul {
+            margin: 0.5rem 0 0 1.5rem;
+        }
+
+        .item-description li {
+            margin-bottom: 0.25rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+        }
+
+        .skill-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .skill-item i {
+            color: var(--primary-color);
+            width: 16px;
+        }
+
+        .skills-category {
+            margin-bottom: 1.5rem;
+        }
+
+        .skills-category-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .language-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .language-item:last-child {
+            border-bottom: none;
+        }
+
+        .language-name {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .language-level {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .objective {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .objective-text {
+            font-style: italic;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .resume-container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+            
+            .resume-header {
+                background: var(--primary-color) !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .resume-body {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-content {
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+            
+            .header-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .contact-info {
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="resume-container">
+        <header class="resume-header">
+            <div class="header-content">
+                <div class="name-section">
+                    <h1>Sri Santhanam Samy</h1>
+                    <p class="title">B.Tech Information Technology Student & Web Developer</p>
+                </div>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>mrssrisanthanam@gmail.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+91 6374920861</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Tirunelveli, India</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-linkedin"></i>
+                        <span>linkedin.com/in/santhanam-samy</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-github"></i>
+                        <span>github.com/santhanam-samy-7878</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="resume-body">
+            <main class="main-content">
+                <section class="section">
+                    <h2 class="section-title">
+                        <i class="fas fa-user-tie"></i>
+                        Professional Summary
+                    </h2>
+                    <div class="objective">
+                        <p class="objective-text">
+                            Aspiring IT professional with strong foundation in software development and web technologies. 
+                            Seeking to leverage technical expertise and problem-solving skills in a growth-oriented environment. 
+                            Passionate about creating innovative solutions and contributing to cutting-edge projects that drive organizational success.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2 class="section-title">
+                        <i class="fas fa-graduation-cap"></i>
+                        Education
+                    </h2>
+                    
+                    <div class="education-item">
+                        <div class="item-header">
+                            <div>
+                                <div class="item-title">B.Tech Information Technology</div>
+                                <div class="item-subtitle">Francis Xavier Engineering College, Tirunelveli</div>
+                            </div>
+                            <div class="item-date">2022 - Present</div>
+                        </div>
+                        <div class="item-description">
+                            <strong>CGPA:</strong> 7.58/10.0<br>
+                            Relevant Coursework: Data Structures, Web Development, Database Systems, Software Engineering
+                        </div>
+                    </div>
+
+                    <div class="education-item">
+                        <div class="item-header">
+                            <div>
+                                <div class="item-title">Higher Secondary Certificate (HSC)</div>
+                                <div class="item-subtitle">Sri Jayendra Vidya Kendra, Tirunelveli</div>
+                            </div>
+                            <div class="item-date">2022</div>
+                        </div>
+                        <div class="item-description">
+                            <strong>Percentage:</strong> 70.2%<br>
+                            <strong>Stream:</strong> Computer Science
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2 class="section-title">
+                        <i class="fas fa-briefcase"></i>
+                        Internship Experience
+                    </h2>
+                    
+                    <div class="experience-item">
+                        <div class="item-header">
+                            <div>
+                                <div class="item-title">Data Analytics & Excel Dashboard Intern</div>
+                                <div class="item-subtitle">Team Infosoft</div>
+                            </div>
+                            <div class="item-date">6 Weeks</div>
+                        </div>
+                        <div class="item-description">
+                            <ul>
+                                <li>Designed interactive Excel dashboards to enhance data visualization and decision-making processes</li>
+                                <li>Conducted comprehensive data analysis using Excel, deriving meaningful insights for business decisions</li>
+                                <li>Participated in mock interviews to improve technical communication and problem-solving skills</li>
+                                <li>Collaborated with cross-functional teams to enhance reporting efficiency and presentation quality</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2 class="section-title">
+                        <i class="fas fa-project-diagram"></i>
+                        Projects
+                    </h2>
+                    
+                    <div class="project-item">
+                        <div class="item-header">
+                            <div>
+                                <div class="item-title">Personal Portfolio Website</div>
+                                <div class="item-subtitle">HTML, CSS, JavaScript, SQL</div>
+                            </div>
+                        </div>
+                        <div class="item-description">
+                            Developed a responsive personal portfolio website showcasing projects, technical skills, and professional journey. 
+                            Features modern design with smooth animations and optimized performance.
+                        </div>
+                    </div>
+
+                    <div class="project-item">
+                        <div class="item-header">
+                            <div>
+                                <div class="item-title">Smart Learning Application</div>
+                                <div class="item-subtitle">UI/UX Design, Figma</div>
+                            </div>
+                        </div>
+                        <div class="item-description">
+                            Designed an intuitive and user-friendly interface for an educational application targeting young learners. 
+                            Focused on accessibility, engagement, and seamless user experience.
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2 class="section-title">
+                        <i class="fas fa-certificate"></i>
+                        Certifications
+                    </h2>
+                    <div class="item-description">
+                        <ul>
+                            <li><strong>Red Hat Certified System Administrator (RHCSA)</strong></li>
+                            <li><strong>Android Application Testing using Appium</strong> - Comprehensive mobile testing certification</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2 class="section-title">
+                        <i class="fas fa-trophy"></i>
+                        Achievements
+                    </h2>
+                    <div class="item-description">
+                        <ul>
+                            <li><strong>Smart India Hackathon 2024</strong> - Participated in national-level hackathon</li>
+                            <li><strong>Aura Internal Hackathon</strong> - Received Special Jury Award at Francis Xavier Engineering College</li>
+                        </ul>
+                    </div>
+                </section>
+            </main>
+
+            <aside class="sidebar">
+                <section class="section">
+                    <h2 class="section-title">
+                        <i class="fas fa-tools"></i>
+                        Technical Skills
+                    </h2>
+                    
+                    <div class="skills-category">
+                        <div class="skills-category-title">Programming Languages</div>
+                        <div class="skills-grid">
+                            <div class="skill-item"><i class="fab fa-html5"></i> HTML5</div>
+                            <div class="skill-item"><i class="fab fa-css3-alt"></i> CSS3</div>
+                            <div class="skill-item"><i class="fab fa-js"></i> JavaScript</div>
+                            <div class="skill-item"><i class="fas fa-database"></i> SQL</div>
+                            <div class="skill-item"><i class="fas fa-code"></i> C Programming</div>
+                        </div>
+                    </div>
+
+                    <div class="skills-category">
+                        <div class="skills-category-title">Tools & Technologies</div>
+                        <div class="skills-grid">
+                            <div class="skill-item"><i class="fab fa-figma"></i> Figma</div>
+                            <div class="skill-item"><i class="fab fa-android"></i> Android Studio</div>
+                            <div class="skill-item"><i class="fas fa-network-wired"></i> Cisco Packet Tracer</div>
+                            <div class="skill-item"><i class="fab fa-linux"></i> Linux</div>
+                        </div>
+                    </div>
+
+                    <div class="skills-category">
+                        <div class="skills-category-title">Soft Skills</div>
+                        <div class="skills-grid">
+                            <div class="skill-item"><i class="fas fa-users"></i> Teamwork</div>
+                            <div class="skill-item"><i class="fas fa-puzzle-piece"></i> Problem Solving</div>
+                            <div class="skill-item"><i class="fas fa-chart-line"></i> Data Analysis</div>
+                            <div class="skill-item"><i class="fas fa-comments"></i> Communication</div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2 class="section-title">
+                        <i class="fas fa-language"></i>
+                        Languages
+                    </h2>
+                    <div class="language-item">
+                        <span class="language-name">English</span>
+                        <span class="language-level">Professional</span>
+                    </div>
+                    <div class="language-item">
+                        <span class="language-name">Tamil</span>
+                        <span class="language-level">Native</span>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2 class="section-title">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Location
+                    </h2>
+                    <div class="item-description">
+                        <strong>Tirunelveli, Tamil Nadu</strong><br>
+                        <span class="small">Available for relocation</span>
+                    </div>
+                </section>
+            </aside>
+        </div>
+    </div>
+</body>
+</html>

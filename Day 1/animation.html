@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spark Productions - Animated Loader</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at center, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .loader-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .camera-body {
+            position: absolute;
+            width: 120px;
+            height: 80px;
+            background: linear-gradient(145deg, #2c3e50, #34495e);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: cameraFloat 3s ease-in-out infinite;
+        }
+
+        .camera-lens {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, #ecf0f1 0%, #bdc3c7 50%, #95a5a6 100%);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
+            animation: lensPulse 2s ease-in-out infinite;
+        }
+
+        .camera-lens::before {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: radial-gradient(circle, #3498db 0%, #2980b9 100%);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: lensGlow 1.5s ease-in-out infinite alternate;
+        }
+
+        .camera-lens::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #fff;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: lensShine 2s ease-in-out infinite;
+        }
+
+        .camera-button {
+            position: absolute;
+            width: 20px;
+            height: 10px;
+            background: linear-gradient(145deg, #e74c3c, #c0392b);
+            border-radius: 3px;
+            top: -5px;
+            right: 20px;
+            animation: buttonBlink 2.5s ease-in-out infinite;
+        }
+
+        .flash {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 2px solid transparent;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: flashRing 2s ease-in-out infinite;
+        }
+
+        .loading-text {
+            position: absolute;
+            bottom: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ecf0f1;
+            font-size: 1.2rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            animation: textGlow 2s ease-in-out infinite alternate;
+        }
+
+        .loading-dots {
+            display: inline-block;
+            margin-left: 5px;
+        }
+
+        .loading-dots span {
+            display: inline-block;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: #3498db;
+            margin: 0 2px;
+            animation: dots 1.5s infinite;
+        }
+
+        .loading-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .loading-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .sparkles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #f39c12;
+            border-radius: 50%;
+            animation: sparkle 3s linear infinite;
+        }
+
+        .sparkle:nth-child(1) { top: 20%; left: 20%; animation-delay: 0s; }
+        .sparkle:nth-child(2) { top: 30%; right: 25%; animation-delay: 0.5s; }
+        .sparkle:nth-child(3) { bottom: 30%; left: 30%; animation-delay: 1s; }
+        .sparkle:nth-child(4) { bottom: 20%; right: 20%; animation-delay: 1.5s; }
+        .sparkle:nth-child(5) { top: 50%; left: 10%; animation-delay: 2s; }
+        .sparkle:nth-child(6) { top: 10%; right: 50%; animation-delay: 2.5s; }
+
+        .company-name {
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ecf0f1;
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            animation: companyPulse 3s ease-in-out infinite;
+        }
+
+        /* Animations */
+        @keyframes cameraFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes lensPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        @keyframes lensGlow {
+            0% { box-shadow: 0 0 10px #3498db; }
+            100% { box-shadow: 0 0 30px #3498db, 0 0 50px #3498db; }
+        }
+
+        @keyframes lensShine {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes buttonBlink {
+            0%, 100% { background: linear-gradient(145deg, #e74c3c, #c0392b); }
+            50% { background: linear-gradient(145deg, #ff6b6b, #ff4757); }
+        }
+
+        @keyframes flashRing {
+            0% { 
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0;
+            }
+            50% { 
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.5;
+            }
+            100% { 
+                transform: translate(-50%, -50%) scale(1.4);
+                opacity: 0;
+            }
+        }
+
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 5px #3498db; }
+            100% { text-shadow: 0 0 20px #3498db, 0 0 30px #3498db; }
+        }
+
+        @keyframes dots {
+            0%, 60%, 100% { opacity: 0; }
+            30% { opacity: 1; }
+        }
+
+        @keyframes sparkle {
+            0% { 
+                transform: scale(0) rotate(0deg);
+                opacity: 0;
+            }
+            50% { 
+                transform: scale(1) rotate(180deg);
+                opacity: 1;
+            }
+            100% { 
+                transform: scale(0) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes companyPulse {
+            0%, 100% { 
+                opacity: 0.8;
+                transform: translateX(-50%) scale(1);
+            }
+            50% { 
+                opacity: 1;
+                transform: translateX(-50%) scale(1.05);
+            }
+        }
+
+        /* Progress indicator */
+        .progress-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150px;
+            height: 150px;
+            z-index: -1;
+        }
+
+        .progress-ring circle {
+            fill: none;
+            stroke: rgba(52, 152, 219, 0.3);
+            stroke-width: 2;
+            stroke-dasharray: 440;
+            stroke-dashoffset: 440;
+            animation: progress 4s linear infinite;
+        }
+
+        @keyframes progress {
+            0% { stroke-dashoffset: 440; }
+            100% { stroke-dashoffset: 0; }
+        }
+
+        /* Responsive design */
+        @media (max-width: 480px) {
+            .loader-container {
+                transform: scale(0.8);
+            }
+            
+            .company-name {
+                font-size: 1.2rem;
+            }
+            
+            .loading-text {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loader-container">
+        <div class="company-name">SPARK PRODUCTIONS</div>
+        
+        <div class="camera-body">
+            <div class="camera-lens"></div>
+            <div class="camera-button"></div>
+            <div class="flash"></div>
+        </div>
+        
+        <svg class="progress-ring" viewBox="0 0 150 150">
+            <circle cx="75" cy="75" r="70"></circle>
+        </svg>
+        
+        <div class="sparkles">
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+        </div>
+        
+        <div class="loading-text">
+            Loading
+            <div class="loading-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simulate loading completion
+        setTimeout(() => {
+            document.querySelector('.loading-text').innerHTML = 'Ready!';
+            document.querySelector('.camera-body').style.animation = 'none';
+            document.querySelector('.camera-lens').style.animation = 'none';
+            document.querySelector('.flash').style.animation = 'flashComplete 0.5s ease-out';
+        }, 5000);
+
+        // Add flash completion animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes flashComplete {
+                0% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+                50% { transform: translate(-50%, -50%) scale(1.5); opacity: 1; }
+                100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

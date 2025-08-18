@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Profile Cards</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Interactive Profile Cards</h1>
+            <p>Click "Add Profile" to create new profile cards dynamically</p>
+            <button id="addProfileBtn" class="btn primary">Add Profile</button>
+        </header>
+        <header>
+            <h1>Interactive Profile Cards</h1>
+            <p>Click "Add Profile" to create new profile cards dynamically</p>
+            <button id="addProfileBtn" class="btn primary">Add Profile</button>
+        </header>
+        <header>
+            <h1>Interactive Profile Cards</h1>
+            <p>Click "Add Profile" to create new profile cards dynamically</p>
+            <button id="addProfileBtn" class="btn primary">Add Profile</button>
+        </header>
+
+        <div id="profileContainer" class="profile-container">
+            <!-- Profile cards will be dynamically added here -->
+        </div>
+
+        <div class="demo-section">
+            <h2>Math Utils Demo</h2>
+            <p>Check console for math operations using JavaScript modules</p>
+        </div>
+    </div>
+
+    <!-- Modal Dialog for Adding Profiles -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add New Profile</h2>
+            <form id="profileForm">
+                <div class="form-group">
+                    <label for="profileName">Name:</label>
+                    <input type="text" id="profileName" name="name" required maxlength="50">
+                    <span class="error" id="nameError"></span>
+                </div>
+                <div class="form-group">
+                    <label for="profileRole">Role:</label>
+                    <input type="text" id="profileRole" name="role" required maxlength="50">
+                    <span class="error" id="roleError"></span>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn primary">Add Profile</button>
+                    <button type="button" class="btn secondary" id="cancelBtn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success/Error Messages -->
+    <div id="messageContainer" class="message-container"></div>
+
+    <script type="module" src="main.js"></script>
+</body>
+</html>

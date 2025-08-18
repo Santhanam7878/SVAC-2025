@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preview Card</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<style>
+    body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #fdeeda;
+}
+
+.container {
+    display: flex;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.first {
+    background-color: #e18524;
+    height: 30rem;
+    width: 18rem;
+}
+
+.second {
+    background-color: #006970;
+    height: 30rem;
+    width: 18rem;
+}
+
+.third {
+    background-color: #003f3d;
+    height: 30rem;
+    width: 18rem;
+}
+
+img {
+    padding: 40px;
+}
+
+h1 {
+    padding-left: 40px;
+    margin: 0px;
+    color: #fdeeda;
+}
+
+p {
+    padding-left: 40px;
+    margin: 26px 60px 0px 0px;
+    line-height: 1.5;
+    color: hsla(0, 0%, 100%, 0.75);
+}
+
+#button1 {
+    margin-left: 40px;
+    height: 3rem;
+    width: 9rem;
+    border-radius: 27px;
+    border: none;
+    color: #e18524;
+    margin: 75px 35px 0px 40px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+#button2 {
+    margin-left: 40px;
+    height: 3rem;
+    width: 9rem;
+    border-radius: 27px;
+    border: none;
+    color: #006970;
+    margin: 75px 35px 0px 40px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+#button3 {
+    margin-left: 40px;
+    height: 3rem;
+    width: 9rem;
+    border-radius: 27px;
+    border: none;
+    color: #003f3d;
+    margin: 75px 35px 0px 40px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column; 
+    align-items: center; 
+    margin-top: auto;
+    padding-top: auto;
+
+  }
+}
+
+button:hover {
+    transform: scale(1.1);
+    background-color: rgb(202, 202, 145); 
+}
+</style>
+<body>
+    <div class="container">
+        <div class="first box">
+            <img src="C:\Users\santh\Downloads\icon-sedans.svg" alt="sedans">
+            <h1>SEDANS</h1>
+            <p>Choose a sedan for its affordability and excellent fuel economy. Ideal for cruising in the city 
+                or on your next road trip.</p>
+            <button id="button1">Learn More</button>
+        </div>
+        <div class="second box">
+            <img src="C:\Users\santh\Downloads\icon-suvs.svg" alt="SUV">
+            <h1>SUVS</h1>
+            <p>Take an SUV for its spacious interior, power, and versatility. Perfect for your next family vacation 
+                and off-road adventures.</p>
+            <button id="button2">Learn More</button>
+        </div>
+        <div class="third box">
+            <img src="C:\Users\santh\Downloads\icon-luxury.svg" alt="LUXURY">
+            <h1>LUXURY</h1>
+            <p>Cruise in the best car brands without the bloated prices. Enjoy the enhanced comfort of a luxury 
+                rental and arrive in style.</p>
+            <button id="button3">Learn More</button>
+        </div>
+    </div>
+
+</body>
+</html>
